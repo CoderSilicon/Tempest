@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Noto+Serif+JP:wght@200..900&display=swap");
+
+$weights: 100 200 300 400 500 600 700 800 900;
+
+@each $w in $weights {
+  .lexend-#{$w} {
+    font-family: "Lexend";
+    font-style: normal;
+    font-weight: #{$w};
+  }
+}
+
+@each $w in $weights {
+  .noto-serif-jp-#{$w} {
+    font-family: "Noto Serif JP";
+    font-style: normal;
+    font-weight: #{$w};
+  }
+}
