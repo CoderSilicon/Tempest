@@ -10,7 +10,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="text-2xl font-semibold text-center noto-serif-jp-400">
-          風
+          嵐
         </div>
 
         {/* Navigation Links */}
@@ -24,7 +24,7 @@ const Navbar = () => {
           <Link href="#" className="hover:bg-slate-600 p-2 rounded-md">
             <FaMap />
           </Link>
-          <Link href="#" className="hover:bg-slate-600 p-2 rounded-md">
+          <Link href="/about" className="hover:bg-slate-600 p-2 rounded-md">
             <MdImportContacts />
           </Link>
         </nav>

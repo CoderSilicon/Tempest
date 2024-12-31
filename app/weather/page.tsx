@@ -1,22 +1,27 @@
-import React from "react";
-import { FaSun } from "react-icons/fa";
-import SecondDiv_W from "@/components/weather/ThirdDiv_W";
+"use client";
+import React, { useState } from "react";
+
+import SearchBar from "@/components/weather/SearchBar";
+import { FourthDiv_W } from "@/components/weather/FourthDiv_W";
+import SecondDiv_W from "@/components/weather/SecondDiv_W";
 import ThirdDiv_W from "@/components/weather/ThirdDiv_W";
 
-const page = () => {
+const Page = () => {
+  const [city, setCity] = useState<string>(""); // To track the city input
+
+  const handleCitySearch = (searchedCity: string) => {
+    setCity(searchedCity); // Set the city when the search is triggered
+  };
+
   return (
-    <>
-      <div className="first-div flex justify-center items-center my-8  ">
-        <input
-          type="text"
-          className="w-[26rem] text-slate-100 bg-transparent border border-slate-600 rounded-lg p-3 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-          placeholder="Search your City"
-        />
-      </div>
-      <SecondDiv_W />
-      <ThirdDiv_W />
-    </>
+    <div>
+      <SearchBar onSearch={handleCitySearch} />{" "}
+      {/* Pass city update function */}
+      {city && <SecondDiv_W city={city} />} {city && <ThirdDiv_W city={city} />}{" "}
+      {city && <FourthDiv_W city={city} />}{" "}
+      {/* Display weather data if a city is searched */}
+    </div>
   );
 };
 
-export default page;
+export default Page;
