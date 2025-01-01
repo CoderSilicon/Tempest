@@ -14,7 +14,9 @@ const page = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h1 className="text-6xl text-blue-500 lexend-500">About Arashi(嵐)</h1>
+        <h1 className="text-6xl text-blue-500 lexend-500">
+          About Tempest (嵐)
+        </h1>
         <h2 className="text-4xl font-semibold lexend-500 mb-4 text-blue-500">
           The Coding Journey of Building This Masterpiece (or Disasterpiece?)
         </h2>

@@ -62,7 +62,9 @@ export const FourthDiv_W = ({ city }: FourthDiv_WProps) => {
           Air Conditions
         </h1>
         <div className="air_conditions_div flex justify-center items-center my-8">
-          <h1 className="text-xl text-slate-200 mb-8 text-center">{loading}</h1>
+          <h1 className="text-xl text-slate-200 mb-8 text-center">
+            Loading...
+          </h1>
         </div>
       </div>
     ); // Show loading message

@@ -1,4 +1,5 @@
 "use client";
+import { div } from "framer-motion/client";
 import React, { useState, useEffect } from "react";
 import { FaCloud, FaCloudRain, FaMoon, FaSun } from "react-icons/fa";
 
@@ -44,34 +45,42 @@ const SecondDiv_W = ({ city }: SecondDiv_WProps) => {
   const getWeatherIcon = (iconCode: string) => {
     switch (iconCode) {
       case "01d":
-        return <FaSun className="text-yellow-400 text-9xl" />;
+        return <FaSun className="text-yellow-400 text-7xl sm:text-9xl" />;
       case "01n":
-        return <FaMoon className="text-blue-400 text-9xl" />;
+        return <FaMoon className="text-blue-400 text-7xl sm:text-9xl" />;
       case "02d":
       case "02n":
-        return <FaCloud className="text-gray-500 text-9xl" />;
+        return <FaCloud className="text-gray-500 text-7xl sm:text-9xl" />;
       case "09d":
       case "09n":
-        return <FaCloudRain className="text-blue-500 text-9xl" />;
+        return <FaCloudRain className="text-blue-500 text-7xl sm:text-9xl" />;
       default:
-        return <FaCloud className="text-gray-500 text-9xl" />;
+        return <FaCloud className="text-gray-500 text-7xl sm:text-9xl" />;
     }
   };
 
   return (
-    <div className="sec-div text-center flex justify-around items-center lexend-400 my-8">
-      {error ? (
-        <div className="text-red-500">{error}</div>
-      ) : (
-        <>
-          <div className="heading text-white text-left">
-            <h2 className="text-4xl">{city}</h2>
-            <p className="text-gray-700">Chance of rain: {rainChance}%</p>
-            <h1 className="text-6xl my-6">{temperature}°</h1>
-          </div>
-          <div className="image">{getWeatherIcon(weatherIcon)}</div>
-        </>
-      )}
+    <div className="main flex justify-center items-center lg:justify-around lg:items-start p-4 w-full">
+      <div className="sec-div flex flex-col sm:flex-row justify-center sm:justify-between lg:justify-around items-center lg:items-start text-center sm:text-left lexend-400 my-4 sm:my-8 p-4 w-full">
+        {error ? (
+          <div className="text-red-500 text-sm sm:text-base">{error}</div>
+        ) : (
+          <>
+            <div className="heading text-white mb-4 sm:mb-0 w-full sm:w-auto">
+              <h2 className="text-2xl sm:text-4xl">{city}</h2>
+              <p className="text-gray-400 text-sm sm:text-base mt-2 sm:mt-0">
+                Chance of rain: {rainChance}%
+              </p>
+              <h1 className="text-4xl sm:text-6xl my-4 sm:my-6">
+                {temperature}°
+              </h1>
+            </div>
+            <div className="image flex justify-center items-center mt-4 sm:mt-0 lg:ml-4 w-full sm:w-auto">
+              {getWeatherIcon(weatherIcon)}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };

@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const page = () => {
   return (
-    <div className="homepage min-h-screen flex flex-col items-center justify-center py-12 ">
+    <div className="homepage min-h-screen flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-12 xl:px-24">
       {/* Header Section with Framer Motion */}
       <motion.div
         className="header text-center text-white mb-12"
@@ -14,11 +14,15 @@ const page = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h1 className="text-6xl text-blue-500 text-shadow">嵐</h1>
-        <h2 className="text-4xl font-semibold lexend-500 mb-4 text-blue-500">
-          Arashi
+        <h1 className="text-4xl sm:text-5xl md:text-6xl text-slate-100 text-shadow noto-serif-jp-400">
+          嵐
+        </h1>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold lexend-500 mb-4 text-blue-500">
+          Tempest
         </h2>
-        <p className="text-2xl mb-6">Your Personal Weather Companion</p>
+        <p className="text-lg sm:text-xl md:text-2xl mb-6">
+          Your Personal Weather Companion
+        </p>
       </motion.div>
 
       {/* App Description Section with Framer Motion */}
@@ -28,10 +32,10 @@ const page = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h2 className="text-4xl font-semibold mb-4 lexend-400">
+        <h2 className="text-3xl sm:text-4xl font-semibold mb-4 lexend-400">
           What is Arashi?
         </h2>
-        <p className="text-xl mb-6 lexend-300">
+        <p className="text-base sm:text-lg md:text-xl mb-6 lexend-300">
           Arashi (嵐) is a cutting-edge weather application designed to provide
           users with accurate and real-time weather updates. Whether you're
           planning your day, heading out for a trip, or just curious about the
@@ -39,7 +43,7 @@ const page = () => {
           From current temperatures to rain chances and weather conditions,
           Arashi makes it easy to stay informed.
         </p>
-        <p className="text-lg mb-6">
+        <p className="text-sm sm:text-base mb-6">
           With its clean, user-friendly interface, Arashi is designed to be your
           go-to weather app, providing fast and reliable weather updates for
           cities all around the globe.
@@ -53,8 +57,10 @@ const page = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h3 className="text-3xl font-semibold mb-4">Key Features:</h3>
-        <ul className="list-disc pl-6 text-lg max-w-xl mx-auto">
+        <h3 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
+          Key Features:
+        </h3>
+        <ul className="list-disc pl-6 text-base sm:text-lg max-w-xl  flex justify-center items-center flex-col">
           <motion.li
             className="flex items-center mb-4 hover:text-blue-400 transition-colors duration-300"
             initial={{ opacity: 0 }}
@@ -119,8 +125,10 @@ const page = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h3 className="text-3xl font-semibold mb-4">What Our Users Say:</h3>
-        <div className="testimonials grid grid-cols-1 md:grid-cols-2 gap-8">
+        <h3 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
+          What Our Users Say:
+        </h3>
+        <div className="testimonials grid grid-cols-1 sm:grid-cols-2 gap-8">
           <motion.div
             className="testimonial bg-slate-800 p-6 rounded-lg shadow-lg"
             initial={{ opacity: 0 }}
@@ -157,10 +165,10 @@ const page = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
       >
-        <h3 className="text-3xl font-semibold mb-4">
+        <h3 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
           Start Using Arashi Today
         </h3>
-        <p className="text-lg mb-6">
+        <p className="text-lg sm:text-xl mb-6">
           Download Arashi and get accurate, real-time weather updates anytime,
           anywhere. Whether you're at home or traveling, Arashi is here to keep
           you informed.

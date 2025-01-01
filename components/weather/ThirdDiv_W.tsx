@@ -87,36 +87,36 @@ const ThirdDiv_W = ({ city }: ThirdDiv_WProps) => {
   const getWeatherIcon = (iconCode: string) => {
     switch (iconCode) {
       case "01d":
-        return <FaSun className="text-3xl text-yellow-500" />; // Clear sky during the day
+        return <FaSun className="text-3xl text-yellow-500" />;
       case "01n":
-        return <FaMoon className="text-3xl text-blue-500" />; // Clear sky at night
+        return <FaMoon className="text-3xl text-blue-500" />;
       case "02d":
       case "02n":
-        return <IoIosPartlySunny className="text-3xl text-gray-500" />; // Partly cloudy
+        return <IoIosPartlySunny className="text-3xl text-gray-500" />;
       case "03d":
       case "03n":
-        return <GiCloudyFork className="text-3xl text-gray-600" />; // Cloudy
+        return <GiCloudyFork className="text-3xl text-gray-600" />;
       case "04d":
       case "04n":
-        return <FaCloud className="text-3xl text-gray-700" />; // Overcast
+        return <FaCloud className="text-3xl text-gray-700" />;
       case "09d":
       case "09n":
-        return <FaCloudRain className="text-3xl text-blue-500" />; // Showers
+        return <FaCloudRain className="text-3xl text-blue-500" />;
       case "10d":
-        return <FaCloudRain className="text-3xl text-yellow-500" />; // Rain (day)
+        return <FaCloudRain className="text-3xl text-yellow-500" />;
       case "10n":
-        return <FaCloudRain className="text-3xl text-blue-700" />; // Rain (night)
+        return <FaCloudRain className="text-3xl text-blue-700" />;
       case "11d":
       case "11n":
-        return <FaBolt className="text-3xl text-gray-800" />; // Thunderstorm
+        return <FaBolt className="text-3xl text-gray-800" />;
       case "13d":
       case "13n":
-        return <FaSnowflake className="text-3xl text-white" />; // Snow
+        return <FaSnowflake className="text-3xl text-white" />;
       case "50d":
       case "50n":
-        return <FaSmog className="text-3xl text-gray-400" />; // Mist/Fog
+        return <FaSmog className="text-3xl text-gray-400" />;
       default:
-        return <FaCloud className="text-3xl text-gray-500" />; // Default cloudy icon
+        return <FaCloud className="text-3xl text-gray-500" />;
     }
   };
 
@@ -127,10 +127,12 @@ const ThirdDiv_W = ({ city }: ThirdDiv_WProps) => {
           Today's Forecast
         </h1>
         <div className="air_conditions_div flex justify-center items-center my-8">
-          <h1 className="text-xl text-slate-200 mb-8 text-center">{loading}</h1>
+          <h1 className="text-xl text-slate-200 mb-8 text-center">
+            Loading...
+          </h1>
         </div>
       </div>
-    ); // Show loading message
+    );
   }
 
   if (error) {
@@ -151,23 +153,23 @@ const ThirdDiv_W = ({ city }: ThirdDiv_WProps) => {
       <h1 className="text-xl text-gray-500 mb-8 text-center">
         Today's Forecast
       </h1>
-      <div className="forecast_div flex justify-center gap-8 items-center my-8">
-        <div>
+      <div className="forecast_div flex justify-center gap-4 flex-wrap sm:flex-nowrap items-center my-8">
+        <div className="forecast flex flex-col w-full sm:w-auto">
           {forecastData.length > 0 ? (
-            <div className="forecast flex overflow-x-auto">
+            <div className="forecast_items lg:flex  grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4">
               {forecastData.map((hour, index) => (
                 <div
                   key={index}
-                  className="forecast_item flex flex-col justify-center items-center border-l-2 border-gray-200 px-4 py-6 first:border-l-0"
+                  className="forecast_item flex flex-col justify-center items-center  lg:px-4 lg:py-6 first:border-l-0 sm:border-l-0"
                 >
                   {getWeatherIcon(hour.weather[0].icon)}
-                  <span className="time text-gray-600 font-medium">
+                  <span className="time text-gray-600 font-medium text-xs sm:text-sm">
                     {new Date(hour.dt * 1000).toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit",
                     })}
                   </span>
-                  <span className="temp text-slate-200 font-semibold">
+                  <span className="temp text-slate-200 font-semibold text-xs sm:text-base">
                     {hour.temp.toFixed(1)}°C
                   </span>
                 </div>

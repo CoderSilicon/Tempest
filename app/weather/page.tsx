@@ -5,6 +5,7 @@ import SearchBar from "@/components/weather/SearchBar";
 import { FourthDiv_W } from "@/components/weather/FourthDiv_W";
 import SecondDiv_W from "@/components/weather/SecondDiv_W";
 import ThirdDiv_W from "@/components/weather/ThirdDiv_W";
+import FifthDiv_W from "@/components/weather/FifthDiv_W";
 
 const Page = () => {
   const [city, setCity] = useState<string>(""); // To track the city input
@@ -18,7 +19,8 @@ const Page = () => {
       <SearchBar onSearch={handleCitySearch} />{" "}
       {/* Pass city update function */}
       {city && <SecondDiv_W city={city} />} {city && <ThirdDiv_W city={city} />}{" "}
-      {city && <FourthDiv_W city={city} />}{" "}
+      {city && <FourthDiv_W city={city} />}
+      {city && <FifthDiv_W city={city} />}
       {/* Display weather data if a city is searched */}
     </div>
   );
