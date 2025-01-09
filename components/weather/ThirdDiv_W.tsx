@@ -53,7 +53,7 @@ const ThirdDiv_W = ({ city }: ThirdDiv_WProps) => {
       setLoading(true); // Reset loading state before each fetch
       setError(""); // Clear any previous errors
 
-      const API_KEY = "2daa05ca17a2397c080aa2108cd93243"; // Replace with your actual API key
+      const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY; // Replace with your actual API key
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
       try {
@@ -122,14 +122,10 @@ const ThirdDiv_W = ({ city }: ThirdDiv_WProps) => {
 
   if (loading) {
     return (
-      <div className="air_conditions lexend-400 mx-4 bg-slate-800 rounded-xl py-8 px-6 my-4 shadow-xl">
-        <h1 className="text-xl text-gray-500 mb-8 text-center">
-          Today's Forecast
-        </h1>
-        <div className="air_conditions_div flex justify-center items-center my-8">
-          <h1 className="text-xl text-slate-200 mb-8 text-center">
-            Loading...
-          </h1>
+      <div className="animate-pulse lexend-400 mx-4 bg-slate-800 rounded-xl p-10 my-4 shadow-xl">
+        <div className="h-6 bg-gray-200 rounded w-1/2 mx-auto mb-4"></div>
+        <div className="flex justify-center items-center my-8">
+          <div className="h-6 bg-slate-600 rounded w-1/2 mx-auto"></div>
         </div>
       </div>
     );
@@ -149,34 +145,34 @@ const ThirdDiv_W = ({ city }: ThirdDiv_WProps) => {
   }
 
   return (
-    <div className="air_conditions lexend-400 mx-4 bg-slate-800 rounded-xl py-8 px-6 my-4 shadow-xl">
-      <h1 className="text-xl text-gray-500 mb-8 text-center">
+    <div className="air_conditions lexend-400 mx-4 bg-polar-night-light rounded-xl py-8 px-6 my-4 shadow-xl">
+      <h1 className="text-xl text-snow-storm-light mb-8 text-center">
         Today's Forecast
       </h1>
       <div className="forecast_div flex justify-center gap-4 flex-wrap sm:flex-nowrap items-center my-8">
         <div className="forecast flex flex-col w-full sm:w-auto">
           {forecastData.length > 0 ? (
-            <div className="forecast_items lg:flex  grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4">
+            <div className="forecast_items lg:flex grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4">
               {forecastData.map((hour, index) => (
                 <div
                   key={index}
-                  className="forecast_item flex flex-col justify-center items-center  lg:px-4 lg:py-6 first:border-l-0 sm:border-l-0"
+                  className="forecast_item flex flex-col justify-center items-center bg-polar-night-light rounded-lg p-4 border border-polar-night-lighter shadow-md"
                 >
                   {getWeatherIcon(hour.weather[0].icon)}
-                  <span className="time text-gray-600 font-medium text-xs sm:text-sm">
+                  <span className="time text-snow-storm font-medium text-xs sm:text-sm">
                     {new Date(hour.dt * 1000).toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit",
                     })}
                   </span>
-                  <span className="temp text-slate-200 font-semibold text-xs sm:text-base">
+                  <span className="temp text-snow-storm-light font-semibold text-xs sm:text-base">
                     {hour.temp.toFixed(1)}°C
                   </span>
                 </div>
               ))}
             </div>
           ) : (
-            <p className="text-gray-500">No forecast data available.</p>
+            <p className="text-snow-storm-light">No forecast data available.</p>
           )}
         </div>
       </div>

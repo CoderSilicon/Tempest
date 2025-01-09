@@ -1,0 +1,43 @@
+/* Add this CSS in your global styles */
+@keyframes sunrise {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes sunset {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-sunrise {
+  animation: sunrise 1.5s ease-out forwards;
+}
+
+.animate-sunset {
+  animation: sunset 1.5s ease-out forwards;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 2s ease-out forwards;
+}

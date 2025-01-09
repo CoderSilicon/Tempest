@@ -22,12 +22,12 @@ const FifthDiv_W: React.FC<FifthDivProps> = ({ city }) => {
     <img
       src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
       alt="Weather Icon"
-      className="w-10 h-10 sm:w-12 sm:h-12"
+      className="w-12 h-12"
     />
   );
 
   const fetchForecast = async (city: string): Promise<void> => {
-    const apiKey = "1bdb17e1817de952da5326b91c048d53";
+    const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${apiKey}`;
 
     try {
@@ -73,44 +73,52 @@ const FifthDiv_W: React.FC<FifthDivProps> = ({ city }) => {
     }
   }, [city]);
 
+  const containerStyle =
+    "bg-[#2E3440] text-[#D8DEE9] rounded-lg p-6 shadow-lg max-w-lg mx-auto sm:p-8 lg:max-w-2xl";
+  const headingStyle = "text-2xl font-semibold mb-6 text-center text-[#81A1C1]";
+  const itemStyle =
+    "grid grid-cols-4 items-center border-b border-[#4C566A] py-3 last:border-b-0 gap-2 sm:gap-4";
+  const errorStyle = "text-center text-red-500 font-medium";
+
   if (loading) {
-    return <p className="text-center text-gray-300">Loading...</p>;
+    return (
+      <div className={`${containerStyle} animate-pulse`}>
+        <div className="h-6 bg-[#4C566A] rounded w-1/2 mx-auto mb-4"></div>
+        <div className="h-6 bg-[#4C566A] rounded w-3/4 mx-auto"></div>
+      </div>
+    );
   }
 
   if (error) {
-    return <p className="text-center text-red-500">{error}</p>;
+    return (
+      <div className={containerStyle}>
+        <h1 className={headingStyle}>5-Day Forecast</h1>
+        <p className={errorStyle}>{error}</p>
+      </div>
+    );
   }
 
   return (
-    <div className="forecast-container lexend-400 mx-2 sm:mx-4">
-      <div className="air_conditions bg-slate-800 rounded-xl py-4 sm:py-8 px-4 sm:px-6 my-4 shadow-xl">
-        <h1 className="text-lg sm:text-xl text-gray-500 mb-6 sm:mb-8 text-center">
-          5-Day Forecast
-        </h1>
-        {forecastData.length > 0 && (
-          <div className="forecast flex flex-col gap-4 sm:gap-6">
-            {forecastData.map((day, index) => (
-              <div
-                key={index}
-                className="forecast_item flex flex-wrap sm:flex-nowrap justify-between items-center gap-2 sm:gap-4 border-b border-gray-700 pb-4 last:border-b-0"
-              >
-                <div className="day text-gray-300 font-bold flex-1 text-center text-sm sm:text-base">
-                  {day.day}
-                </div>
-                <div className="icon flex-1 flex justify-center">
-                  {getWeatherIcon(day.icon)}
-                </div>
-                <div className="temp text-slate-200 font-semibold flex-1 text-center text-sm sm:text-base">
-                  {day.temp_max.toFixed(1)}°C / {day.temp_min.toFixed(1)}°C
-                </div>
-                <div className="description text-slate-400 flex-1 text-center text-xs sm:text-sm">
-                  {day.description}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+    <div className={containerStyle}>
+      <h1 className={headingStyle}>5-Day Forecast</h1>
+      {forecastData.length > 0 && (
+        <div className="space-y-4">
+          {forecastData.map((day, index) => (
+            <div key={index} className={itemStyle}>
+              <span className="font-medium text-center">{day.day}</span>
+              <span className="flex justify-center">
+                {getWeatherIcon(day.icon)}
+              </span>
+              <span className="text-center font-semibold">
+                {day.temp_max.toFixed(1)}°C / {day.temp_min.toFixed(1)}°C
+              </span>
+              <span className="text-center text-sm text-[#88C0D0]">
+                {day.description}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
