@@ -23,7 +23,7 @@ const SixthDiv_W = ({ city }: SunriseSunsetProps) => {
       setLoading(true); // Reset loading state before each fetch
       setError(""); // Clear any previous errors
 
-      const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY; // Replace with your actual API key
+      const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY; // Replace with your actual API key
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
       try {
@@ -92,7 +92,7 @@ const SixthDiv_W = ({ city }: SunriseSunsetProps) => {
       <h1 className="text-xl text-white mb-8 text-center font-bold">
         Sunrise & Sunset
       </h1>
-      <div className="sun_times flex justify-around items-center gap-8">
+      <div className="sun_times flex flex-wrap justify-around items-center gap-8">
         <div className="sunrise flex flex-col items-center animate-sunrise gap-4">
           <FaSun className="text-4xl text-yellow-400 animate-pulse" />
           <span className="time text-white font-semibold text-lg sm:text-xl">

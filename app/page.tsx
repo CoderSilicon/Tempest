@@ -1,187 +1,115 @@
 "use client";
-import React from "react";
+
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FaArrowRight } from "react-icons/fa"; // React Icon for CTA button
-import Link from "next/link";
+import {
+  FaArrowRight,
+  FaCloudSun,
+  FaUmbrella,
+  FaGlobe,
+  FaBolt,
+  FaWind,
+} from "react-icons/fa";
 
-const page = () => {
+const Modal = ({ isOpen, onClose, children }: any) => {
+  if (!isOpen) return null;
+
   return (
-    <div className="homepage min-h-screen flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-12 xl:px-24">
-      {/* Header Section with Framer Motion */}
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <motion.div
-        className="header text-center text-white mb-12"
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        className="bg-nord-6 rounded-lg shadow-lg p-6 w-full max-w-md text-nord-0"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.8 }}
       >
-        <h1 className="text-4xl sm:text-5xl md:text-6xl text-slate-100 text-shadow noto-serif-jp-400">
-          嵐
-        </h1>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold lexend-500 mb-4 text-blue-500">
-          Tempest
-        </h2>
-        <p className="text-lg sm:text-xl md:text-2xl mb-6">
-          Your Personal Weather Companion
-        </p>
-      </motion.div>
-
-      {/* App Description Section with Framer Motion */}
-      <motion.div
-        className="description-section text-white text-center px-6 sm:px-12 lg:px-24 mb-12"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h2 className="text-3xl sm:text-4xl font-semibold mb-4 lexend-400">
-          What is Arashi?
-        </h2>
-        <p className="text-base sm:text-lg md:text-xl mb-6 lexend-300">
-          Arashi (嵐) is a cutting-edge weather application designed to provide
-          users with accurate and real-time weather updates. Whether you're
-          planning your day, heading out for a trip, or just curious about the
-          weather, Arashi gives you all the information you need at a glance.
-          From current temperatures to rain chances and weather conditions,
-          Arashi makes it easy to stay informed.
-        </p>
-        <p className="text-sm sm:text-base mb-6">
-          With its clean, user-friendly interface, Arashi is designed to be your
-          go-to weather app, providing fast and reliable weather updates for
-          cities all around the globe.
-        </p>
-      </motion.div>
-
-      {/* Key Features Section with Framer Motion */}
-      <motion.div
-        className="features-section text-white text-center mb-12 px-6 sm:px-12 lg:px-24"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h3 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-          Key Features:
-        </h3>
-        <ul className="list-disc pl-6 text-base sm:text-lg max-w-xl  flex justify-center items-center flex-col">
-          <motion.li
-            className="flex items-center mb-4 hover:text-blue-400 transition-colors duration-300"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <FaArrowRight className="text-yellow-400 mr-4" />
-            Current temperature in Celsius for any city
-          </motion.li>
-          <motion.li
-            className="flex items-center mb-4 hover:text-blue-400 transition-colors duration-300"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <FaArrowRight className="text-yellow-400 mr-4" />
-            Chance of rain for the next hour
-          </motion.li>
-          <motion.li
-            className="flex items-center mb-4 hover:text-blue-400 transition-colors duration-300"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <FaArrowRight className="text-yellow-400 mr-4" />
-            Weather icons to visually represent conditions
-          </motion.li>
-          <motion.li
-            className="flex items-center mb-4 hover:text-blue-400 transition-colors duration-300"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
-            <FaArrowRight className="text-yellow-400 mr-4" />
-            Simple, clean, and intuitive interface
-          </motion.li>
-          <motion.li
-            className="flex items-center mb-4 hover:text-blue-400 transition-colors duration-300"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.8 }}
-          >
-            <FaArrowRight className="text-yellow-400 mr-4" />
-            Fast, real-time weather updates
-          </motion.li>
-          <motion.li
-            className="flex items-center mb-4 hover:text-blue-400 transition-colors duration-300"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 1 }}
-          >
-            <FaArrowRight className="text-yellow-400 mr-4" />
-            Global city and country search support
-          </motion.li>
-        </ul>
-      </motion.div>
-
-      {/* Testimonials Section with Framer Motion */}
-      <motion.div
-        className="testimonials-section text-white text-center mb-12 px-6 sm:px-12 lg:px-24"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h3 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-          What Our Users Say:
-        </h3>
-        <div className="testimonials grid grid-cols-1 sm:grid-cols-2 gap-8">
-          <motion.div
-            className="testimonial bg-slate-800 p-6 rounded-lg shadow-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            <p className="text-lg mb-4">
-              "Arashi is my go-to weather app! It's accurate, easy to use, and
-              visually appealing. I love how quickly I can check the weather!"
-            </p>
-            <p className="font-semibold">Anika Sharma</p>
-            <p className="text-sm text-gray-300">Frequent Traveler</p>
-          </motion.div>
-          <motion.div
-            className="testimonial bg-slate-800 p-6 rounded-lg shadow-lg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            <p className="text-lg mb-4">
-              "I can easily see the temperature and rain chances. The icons make
-              it fun, and I never have to guess the weather anymore!"
-            </p>
-            <p className="font-semibold">Ravi Kumar</p>
-            <p className="text-sm text-gray-300">Outdoor Enthusiast</p>
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Call to Action Section with Framer Motion */}
-      <motion.div
-        className="cta-section text-center text-white"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h3 className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-4">
-          Start Using Arashi Today
-        </h3>
-        <p className="text-lg sm:text-xl mb-6">
-          Download Arashi and get accurate, real-time weather updates anytime,
-          anywhere. Whether you're at home or traveling, Arashi is here to keep
-          you informed.
-        </p>
-        <Link
-          href="/weather"
-          className="bg-blue-600 text-white p-4 rounded-md text-lg font-semibold hover:bg-blue-500 hover:text-blue-400 transition duration-300"
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-nord-3 hover:text-nord-2"
         >
-          Get Started <FaArrowRight className="inline-block ml-2" />
-        </Link>
+          &times;
+        </button>
+        {children}
       </motion.div>
     </div>
   );
 };
 
-export default page;
+const Page = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  return (
+    <div className="w-full min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-nord-0 to-nord-1 text-nord-6">
+      {/* Header */}
+      <motion.div
+        className="text-center mb-8 sm:mb-12"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h1 className="text-5xl font-bold mb-4 text-nord-7">嵐</h1>
+        <h2 className="text-3xl font-extrabold mb-4 text-nord-8">Tempest</h2>
+        <p className="text-lg text-nord-4">Weather at its Coolest</p>
+      </motion.div>
+
+      {/* Feature Grid */}
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12 w-full max-w-6xl"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        {[
+          { icon: FaCloudSun, text: "Real-time Updates" },
+          { icon: FaUmbrella, text: "Rain Forecast" },
+          { icon: FaGlobe, text: "Global Coverage" },
+          { icon: FaBolt, text: "Severe Weather Alerts" },
+          { icon: FaWind, text: "Wind Speed & Direction" },
+          { icon: FaArrowRight, text: "Customizable Dashboard" },
+        ].map((feature, index) => (
+          <div
+            key={index}
+            className="bg-nord-2 rounded-lg p-4 flex flex-col items-center justify-center text-center shadow-md text-nord-6"
+          >
+            <feature.icon className="text-4xl mb-3 text-nord-9" />
+            <p className="text-lg font-semibold">{feature.text}</p>
+          </div>
+        ))}
+      </motion.div>
+
+      {/* Call-to-Action */}
+      <motion.div
+        className="text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <h3 className="text-2xl font-bold mb-6">Experience the Storm</h3>
+        <button
+          onClick={() => setModalOpen(true)}
+          className="bg-nord-7 hover:bg-nord-8 text-nord-6 font-bold py-3 px-6 rounded-full transition duration-300 transform hover:scale-105"
+        >
+          Launch Arashi <FaArrowRight className="inline-block ml-2" />
+        </button>
+      </motion.div>
+
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+        <h2 className="text-xl font-bold mb-4 text-nord-10">
+          Welcome to Arashi
+        </h2>
+        <p className="text-nord-3 mb-6">
+          Explore the coolest weather updates and experience the storm at its
+          best.
+        </p>
+        <button
+          onClick={() => setModalOpen(false)}
+          className="bg-nord-9 text-nord-6 py-2 px-4 rounded hover:bg-nord-10"
+        >
+          Close
+        </button>
+      </Modal>
+    </div>
+  );
+};
+
+export default Page;

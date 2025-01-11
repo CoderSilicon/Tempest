@@ -53,7 +53,7 @@ const ThirdDiv_W = ({ city }: ThirdDiv_WProps) => {
       setLoading(true); // Reset loading state before each fetch
       setError(""); // Clear any previous errors
 
-      const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY; // Replace with your actual API key
+      const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY; // Replace with your actual API key
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
       try {
@@ -152,7 +152,7 @@ const ThirdDiv_W = ({ city }: ThirdDiv_WProps) => {
       <div className="forecast_div flex justify-center gap-4 flex-wrap sm:flex-nowrap items-center my-8">
         <div className="forecast flex flex-col w-full sm:w-auto">
           {forecastData.length > 0 ? (
-            <div className="forecast_items lg:flex grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4">
+            <div className="forecast_items grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 lg:grid-cols-4">
               {forecastData.map((hour, index) => (
                 <div
                   key={index}

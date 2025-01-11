@@ -17,7 +17,7 @@ const SecondDiv_W = ({ city }: SecondDiv_WProps) => {
     const fetchWeatherData = async () => {
       if (!city) return;
 
-      const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY; // Replace with your actual API key
+      const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY; // Replace with your actual API key
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
       try {

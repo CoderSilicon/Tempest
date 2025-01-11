@@ -23,7 +23,7 @@ export const FourthDiv_W = ({ city }: FourthDiv_WProps) => {
       setLoading(true);
 
       try {
-        const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
+        const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
         const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
         const weatherResponse = await fetch(weatherUrl);
         const weatherData = await weatherResponse.json();
