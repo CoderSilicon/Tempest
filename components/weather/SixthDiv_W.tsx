@@ -20,10 +20,10 @@ const SixthDiv_W = ({ city }: SunriseSunsetProps) => {
         return;
       }
 
-      setLoading(true); // Reset loading state before each fetch
-      setError(""); // Clear any previous errors
+      setLoading(true);
+      setError("");
 
-      const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY; // Replace with your actual API key
+      const API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
       const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`;
 
       try {
@@ -38,23 +38,17 @@ const SixthDiv_W = ({ city }: SunriseSunsetProps) => {
 
         const sunriseTime = new Date(
           data.sys.sunrise * 1000
-        ).toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        });
+        ).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
         const sunsetTime = new Date(data.sys.sunset * 1000).toLocaleTimeString(
           [],
-          {
-            hour: "2-digit",
-            minute: "2-digit",
-          }
+          { hour: "2-digit", minute: "2-digit" }
         );
 
         setSunrise(sunriseTime);
         setSunset(sunsetTime);
       } catch (err) {
         setError("Error fetching sunrise and sunset data.");
-        console.error("Error fetching sunrise and sunset data:", err);
+        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -65,10 +59,10 @@ const SixthDiv_W = ({ city }: SunriseSunsetProps) => {
 
   if (loading) {
     return (
-      <div className="animate-pulse lexend-400 mx-4 bg-slate-800 rounded-xl p-10 my-4 shadow-xl">
-        <div className="h-6 bg-gray-200 rounded w-1/2 mx-auto mb-4"></div>
+      <div className="animate-pulse bg-white dark:bg-gray-800 rounded-xl p-10 my-4 shadow-xl">
+        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mx-auto mb-4"></div>
         <div className="flex justify-center items-center my-8">
-          <div className="h-6 bg-slate-600 rounded w-1/2 mx-auto"></div>
+          <div className="h-6 bg-gray-300 dark:bg-gray-600 rounded w-1/2 mx-auto"></div>
         </div>
       </div>
     );
@@ -76,38 +70,34 @@ const SixthDiv_W = ({ city }: SunriseSunsetProps) => {
 
   if (error) {
     return (
-      <div className="sunrise_sunset lexend-400 mx-4 bg-slate-800 rounded-xl p-10 my-4 shadow-xl">
-        <h1 className="text-xl text-gray-500 mb-8 text-center">
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-10 my-4 shadow-xl">
+        <h1 className="text-xl text-gray-500 dark:text-gray-400 mb-8 text-center">
           Sunrise & Sunset
         </h1>
-        <div className="error_div flex justify-center items-center my-8">
-          <h1 className="text-xl text-red-500 mb-8 text-center">{error}</h1>
+        <div className="flex justify-center items-center my-8">
+          <h1 className="text-xl text-red-500">{error}</h1>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="sunrise_sunset lexend-400 mx-4 bg-gradient-to-r from-gray-950 via-slate-950 to-gray-950 rounded-xl p-10 my-4 shadow-xl">
-      <h1 className="text-xl text-white mb-8 text-center font-bold">
+    <div className="bg-white dark:bg-gray-800 rounded-xl p-10 my-4 shadow-xl border-2 border-slate-800 dark:border-none">
+      <h1 className="text-xl text-black dark:text-white mb-8 text-center font-bold">
         Sunrise & Sunset
       </h1>
-      <div className="sun_times flex flex-wrap justify-around items-center gap-8">
-        <div className="sunrise flex flex-col items-center animate-sunrise gap-4">
+      <div className="flex flex-wrap justify-around items-center gap-8">
+        <div className="flex flex-col items-center gap-4">
           <FaSun className="text-4xl text-yellow-400 animate-pulse" />
-          <span className="time text-white font-semibold text-lg sm:text-xl">
-            Sunrise: {sunrise}
-          </span>
+          <span className="text-black dark:text-white font-semibold text-lg">{`Sunrise: ${sunrise}`}</span>
         </div>
-        <div className="sunset flex flex-col items-center animate-sunset gap-4">
-          <FaMoon className="text-4xl text-blue-400 animate-fadeIn" />
-          <span className="time text-white font-semibold text-lg sm:text-xl">
-            Sunset: {sunset}
-          </span>
+        <div className="flex flex-col items-center gap-4">
+          <FaMoon className="text-4xl text-blue-400" />
+          <span className="text-black dark:text-white font-semibold text-lg">{`Sunset: ${sunset}`}</span>
         </div>
       </div>
-      <div className="info-box text-center mt-8">
-        <p className="text-white text-sm sm:text-base opacity-80">
+      <div className="text-center mt-8">
+        <p className="text-black dark:text-white text-sm opacity-80">
           The times are based on the provided city's local time zone. Enjoy the
           view!
         </p>

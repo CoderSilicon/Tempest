@@ -1,128 +1,120 @@
-"use client";
+// "use client";
 
-import { useState } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  LayersControl,
-  ZoomControl,
-} from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import {
-  WiDaySunny,
-  WiRaindrops,
-  WiStrongWind,
-  WiThermometer,
-} from "react-icons/wi";
+// import { useState } from "react";
+// import {
+//   MapContainer,
+//   TileLayer,
+//   LayersControl,
+//   ZoomControl,
+// } from "react-leaflet";
+// import "leaflet/dist/leaflet.css";
+// import {
+//   WiDaySunny,
+//   WiRaindrops,
+//   WiStrongWind,
+//   WiThermometer,
+// } from "react-icons/wi";
+// import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const OPENWEATHER_API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
+// const OPENWEATHER_API_KEY = process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY;
 
-export default function WeatherMap() {
-  const [activeLayer, setActiveLayer] = useState("temperature");
+// const layers = [
+//   {
+//     id: "temperature",
+//     icon: <WiThermometer size={28} />,
+//     label: "Temperature",
+//   },
+//   {
+//     id: "precipitation",
+//     icon: <WiRaindrops size={28} />,
+//     label: "Precipitation",
+//   },
+//   { id: "wind", icon: <WiStrongWind size={28} />, label: "Wind" },
+//   { id: "clouds", icon: <WiDaySunny size={28} />, label: "Clouds" },
+// ];
 
-  // Center of India
-  const position: [number, number] = [20.5937, 78.9629];
+// export default function WeatherMap() {
+//   const [activeLayer, setActiveLayer] = useState("temperature");
+//   const [isOpen, setIsOpen] = useState(true);
+//   const position: [number, number] = [20.5937, 78.9629];
 
-  return (
-    <>
-      {/* Controls */}
-      <div className="bg-gray-800 p-4 flex justify-center items-center rounded-2xl m-4 gap-4 shadow-md z-10">
-        <button
-          onClick={() => setActiveLayer("temperature")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
-            activeLayer === "temperature"
-              ? "bg-blue-500 text-white"
-              : "bg-slate-900"
-          }`}
-        >
-          <WiThermometer size={24} />
-          Temperature
-        </button>
-        <button
-          onClick={() => setActiveLayer("precipitation")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
-            activeLayer === "precipitation"
-              ? "bg-blue-500 text-white"
-              : "bg-slate-900"
-          }`}
-        >
-          <WiRaindrops size={24} />
-          Precipitation
-        </button>
-        <button
-          onClick={() => setActiveLayer("wind")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
-            activeLayer === "wind" ? "bg-blue-500 text-white" : "bg-slate-900"
-          }`}
-        >
-          <WiStrongWind size={24} />
-          Wind
-        </button>
-        <button
-          onClick={() => setActiveLayer("clouds")}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
-            activeLayer === "clouds" ? "bg-blue-500 text-white" : "bg-slate-900"
-          }`}
-        >
-          <WiDaySunny size={24} />
-          Clouds
-        </button>
-      </div>
+//   return (
+//     <div className="flex h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+//       <div
+//         className={`flex h-full transition-all duration-300 ease-in-out ${
+//           isOpen ? "w-64" : "w-0"
+//         }`}
+//       >
+//         <div
+//           className={`w-64 p-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden ${
+//             isOpen ? "" : "-ml-64"
+//           }`}
+//         >
+//           <h2 className="text-xl font-bold mb-4 text-center">Weather Layers</h2>
+//           <div className="grid grid-cols-1 gap-3">
+//             {layers.map(({ id, icon, label }) => (
+//               <button
+//                 key={id}
+//                 onClick={() => setActiveLayer(id)}
+//                 className={`flex items-center justify-start gap-2 px-4 py-2 rounded-lg transition-all ${
+//                   activeLayer === id
+//                     ? "bg-blue-600 text-white"
+//                     : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+//                 }`}
+//               >
+//                 {icon}
+//                 <span>{label}</span>
+//               </button>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
 
-      {/* Map */}
-      <div className="flex justify-center items-center m-4">
-        <div
-          className="h-screen w-full rounded-2xl border-2 border-blue-500 overflow-hidden relative z-0"
-          style={{ zIndex: 0 }} // Lower z-index for the map container
-        >
-          <MapContainer
-            center={position}
-            zoom={5}
-            zoomControl={false}
-            className="h-full w-full"
-          >
-            <ZoomControl position="bottomright" />
+//       <div className="flex flex-col flex-1">
+//         <button
+//           onClick={() => setIsOpen(!isOpen)}
+//           className="absolute top-2 left-2  p-2 bg-white dark:bg-gray-800 rounded-full shadow-md"
+//         >
+//           {isOpen ? <ChevronLeft size={24} /> : <ChevronRight size={24} />}
+//         </button>
 
-            {/* Base Map Layer */}
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
+//         {/* Map */}
+//         <div className="flex-1 relative border-4 border-blue-500 dark:border-blue-400">
+//           <MapContainer
+//             center={position}
+//             zoom={5}
+//             zoomControl={false}
+//             className="w-full h-full"
+//           >
+//             <ZoomControl position="bottomright" />
+//             <TileLayer
+//               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+//               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+//             />
+//             <LayersControl position="topright">
+//               {layers.map(
+//                 ({ id }) =>
+//                   activeLayer === id && (
+//                     <LayersControl.Overlay key={id} checked name={id}>
+//                       <TileLayer
+//                         url={`https://tile.openweathermap.org/map/${id}_new/{z}/{x}/{y}.png?appid=${OPENWEATHER_API_KEY}`}
+//                         attribution="OpenWeather"
+//                         opacity={0.7}
+//                       />
+//                     </LayersControl.Overlay>
+//                   )
+//               )}
+//             </LayersControl>
+//           </MapContainer>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+import React from "react";
 
-            {/* Weather Layers */}
-            <LayersControl position="topright">
-              {activeLayer === "temperature" && (
-                <TileLayer
-                  url={`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${OPENWEATHER_API_KEY}`}
-                  attribution="OpenWeather"
-                  opacity={0.7}
-                />
-              )}
-              {activeLayer === "precipitation" && (
-                <TileLayer
-                  url={`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${OPENWEATHER_API_KEY}`}
-                  attribution="OpenWeather"
-                  opacity={0.7}
-                />
-              )}
-              {activeLayer === "wind" && (
-                <TileLayer
-                  url={`https://tile.openweathermap.org/map/wind_new/{z}/{x}/{y}.png?appid=${OPENWEATHER_API_KEY}`}
-                  attribution="OpenWeather"
-                  opacity={0.7}
-                />
-              )}
-              {activeLayer === "clouds" && (
-                <TileLayer
-                  url={`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${OPENWEATHER_API_KEY}`}
-                  attribution="OpenWeather"
-                  opacity={0.7}
-                />
-              )}
-            </LayersControl>
-          </MapContainer>
-        </div>
-      </div>
-    </>
-  );
-}
+const page = () => {
+  return <div>Still Implementing yooo</div>;
+};
+
+export default page;
