@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
               href="/"
               className="text-xl font-bold text-gray-800 dark:text-white"
             >
-              Logo
+              Tempest
             </a>
             <div className="hidden md:flex items-center space-x-6">
               {navItems.map(({ name, href }) => (
