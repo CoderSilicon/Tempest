@@ -61,7 +61,7 @@ const CloudComponent: Component<{
   );
 };
 
-const DayComponent: Component<{}> = (props) => {
+const DayComponent: Component<{}> = () => {
   return (
     <div class="flex items-center justify-center">
       <video

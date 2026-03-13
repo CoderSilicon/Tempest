@@ -4,7 +4,4 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [solid(), tailwindcss()],
-  server: {
-    allowedHosts: ["localhost", "unrotund-jeff-snuffier.ngrok-free.dev"],
-  },
 })

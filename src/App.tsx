@@ -43,10 +43,6 @@ export default function Home() {
     <Show
       when={!weatherData.loading}
       fallback={
-        // <div class="flex bg-black text-white items-center justify-center h-screen">
-        //   <p class="text-2xl">Fetching weather data...</p>
-        // </div>
-
         <Loader />
       }
     >
