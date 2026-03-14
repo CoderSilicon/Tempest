@@ -2,9 +2,9 @@
   <img src="public/logo.png" alt="Tempest Logo" width="300"/>
 </p>
 
-# Tempest: Weather, Rendered.
+# Tempest: Don't read, but See.
 
-**Tempest** isn't a utility; it’s an **immersion**. While standard apps give you numbers, Tempest gives you the world. We’ve stripped away the flat, sterile "modern" design of the 2020s and replaced it with high-fidelity **skeuomorphic physics**. It is built for those who don’t just want to know the temperature—they want to feel the pressure drop.
+**Tempest** isn't a utility; it’s an **immersion**. While standard apps give you numbers, Tempest gives you the world. I’ve stripped away the flat, sterile "modern" design of the 2020s and replaced it with high-fidelity **skeuomorphic physics**. It is built for those who don’t just want to know the temperature—they want to feel the pressure drop.
 
 ---
 
