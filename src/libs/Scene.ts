@@ -1,44 +1,68 @@
 import type { WeatherData } from "../types/weather";
 
-export const calculateWeatherScene = (data: WeatherData) => {
+export type SceneType =
+  | "clear"
+  | "day"
+  | "night"
+  | "clouds"
+  | "rain"
+  | "snow"
+  | "fog";
+
+export interface Scene {
+  type: SceneType;
+  /** 1 = light, 2 = moderate, 3 = heavy. */
+  intensity: number;
+  day: boolean;
+}
+
+/**
+ * Maps an OpenWeather condition code onto a visual scene.
+ *
+ * `data.dt` is the moment the observation was taken, so comparing it
+ * against sunrise/sunset (both in the same local offset) gives a correct
+ * day/night answer for the place, not the viewer's clock.
+ */
+export const calculateWeatherScene = (data: WeatherData): Scene => {
   const id = data.weather[0].id;
   const clouds = data.clouds.all;
-  
-  // DIRECT TIMESTAMP CHECK
-  // It is day only if the current time (dt) is between sunrise and sunset
-  const isDay = data.dt >= data.sys.sunrise && data.dt < data.sys.sunset;
-  const isNight = !isDay;
+  const day = data.dt >= data.sys.sunrise && data.dt < data.sys.sunset;
 
-  // LAYER 1: RAIN
-  if (id < 600) {
-    if (id >= 200 && id < 300) return { type: "rain", intensity: 3 }; 
-    if (id === 502 || id === 503 || id === 504) return { type: "rain", intensity: 3 };
-    if (id === 501 || id >= 521) return { type: "rain", intensity: 2 };
-    return { type: "rain", intensity: 1 };
+  // 2xx thunderstorm -> heaviest rain tier
+  if (id >= 200 && id < 300) {
+    return { type: "rain", intensity: 3, day };
   }
 
-  // LAYER 2: FOG/MIST
-  if (id >= 700 && id < 800) {
-    return { type: "fog", intensity: id === 741 ? 2 : 1, day: isDay };
+  // 3xx / 5xx drizzle & rain
+  if ((id >= 300 && id < 400) || (id >= 500 && id < 600)) {
+    if (id === 502 || id === 503 || id === 504 || id === 522) {
+      return { type: "rain", intensity: 3, day };
+    }
+    if (id === 501 || id === 521 || id === 531) {
+      return { type: "rain", intensity: 2, day };
+    }
+    return { type: "rain", intensity: 1, day };
   }
 
-  // LAYER 3: CLOUDS
-  if (id > 800) {
-    if (id === 804 || clouds > 80) return { type: "clouds", intensity: 3, day: isDay };
-    if (id === 803 || clouds > 50) return { type: "clouds", intensity: 2, day: isDay };
-    return { type: "clouds", intensity: 1, day: isDay };
-  }
-
-  // LAYER 4: SNOW
+  // 6xx snow
   if (id >= 600 && id < 700) {
-    return { type: "snow", day: isDay };
+    return { type: "snow", intensity: id >= 620 ? 3 : 2, day };
   }
 
-  // LAYER 5: CLEAR SKY (ID 800)
-  if (id === 800) {
-    return { type: "clear", day: isDay };
+  // 7xx atmosphere: mist / fog / haze / squalls
+  if (id >= 700 && id < 800) {
+    return { type: "fog", intensity: id >= 741 ? 2 : 1, day };
   }
 
-  // FALLBACK
-  return isNight ? { type: "night" } : { type: "day" };
+  // 800 clear
+  if (id === 800) return { type: "clear", intensity: 1, day };
+
+  // 80x clouds
+  if (id > 800) {
+    if (id === 804 || clouds > 80) return { type: "clouds", intensity: 3, day };
+    if (id === 803 || clouds > 50) return { type: "clouds", intensity: 2, day };
+    return { type: "clouds", intensity: 1, day };
+  }
+
+  return { type: day ? "day" : "night", intensity: 1, day };
 };

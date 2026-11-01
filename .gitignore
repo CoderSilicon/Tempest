@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Local secrets. Note: .env is already tracked, so this only stops new
+# files being added — the existing key needs rotating and `git rm --cached`.
+.env
+.env.*
+!.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

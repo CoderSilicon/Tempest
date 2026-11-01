@@ -1,2 +1,8 @@
+# Both packages ship prebuilt binaries via optionalDependencies, so their
+# install scripts aren't needed. Refuse them explicitly so pnpm stops
+# prompting on every install.
+allowBuilds:
+  '@parcel/watcher': false
+  esbuild: false
 ignoredBuiltDependencies:
   - esbuild

@@ -1,1 +1,82 @@
 @import "tailwindcss";
+
+@theme {
+  /* Text */
+  --color-foreground: #ffffff;
+  --color-muted-foreground: rgb(255 255 255 / 0.62);
+  --color-primary: #ffffff;
+
+  /* Accents, used by the real-time snow layer */
+  --color-glacier: #cfe8ff;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    background-color: #09090b;
+    color: var(--color-foreground);
+    font-family: "DM Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    /* Stop iOS Safari from bouncing/zooming the video backdrop */
+    overscroll-behavior: none;
+    /* The readout's scrim deliberately bleeds past the content column to the
+       viewport edges, which makes it wider than the document. Clip rather
+       than hide: `hidden` would turn the body into a scroll container and
+       break `position: fixed`. */
+    overflow-x: clip;
+  }
+
+  /* Respect users who ask for less motion: kill the decorative
+     animations, but never the weather itself. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Was referenced in Weather.tsx but never defined — a silent no-op. */
+  @keyframes slow-drift {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    50% {
+      transform: translate3d(-2.5%, -3%, 0) rotate(-3deg);
+    }
+  }
+
+  .animate-slow-drift {
+    animation: slow-drift 26s ease-in-out infinite;
+  }
+
+  /* Vertical scrim so text stays readable over any footage, day or night.
+     This is what replaces the broken `!isNight() ? text-white : text-black`
+     guess — light text always wins, and the scrim guarantees contrast. */
+  .scrim-b {
+    background: linear-gradient(
+      to top,
+      rgb(0 0 0 / 0.75) 0%,
+      rgb(0 0 0 / 0.45) 35%,
+      rgb(0 0 0 / 0.15) 65%,
+      transparent 100%
+    );
+  }
+
+  .scrim-t {
+    background: linear-gradient(
+      to bottom,
+      rgb(0 0 0 / 0.55) 0%,
+      transparent 40%
+    );
+  }
+}
