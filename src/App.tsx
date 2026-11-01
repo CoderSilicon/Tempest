@@ -5,6 +5,7 @@ import { ErrorScreen } from "./components/ErrorScreen";
 import {
   loadWeather,
   readCache,
+  searchCity,
   type LoadProgress,
 } from "./libs/weatherApi";
 import type { WeatherData } from "./types/weather";
@@ -18,6 +19,8 @@ const App: Component = () => {
   });
   const [error, setError] = createSignal<string | null>(null);
   const [located, setLocated] = createSignal(true);
+  const [searching, setSearching] = createSignal(false);
+  const [searchError, setSearchError] = createSignal<string | null>(null);
 
   const run = async () => {
     // Cache first: if we've been here in the last 15 minutes, the world
@@ -41,6 +44,20 @@ const App: Component = () => {
     }
   };
 
+  const findCity = async (query: string) => {
+    setSearching(true);
+    setSearchError(null);
+    try {
+      const fresh = await searchCity(query);
+      setData(fresh);
+      setLocated(false);
+    } catch (err) {
+      setSearchError(err instanceof Error ? err.message : "City search failed.");
+    } finally {
+      setSearching(false);
+    }
+  };
+
   onMount(run);
 
   return (
@@ -55,7 +72,15 @@ const App: Component = () => {
         <WeatherWorld data={data()} />
 
         <Show when={data()}>
-          {(d) => <WeatherMain data={d()} located={located()} />}
+          {(d) => (
+            <WeatherMain
+              data={d()}
+              located={located()}
+              onSearch={findCity}
+              searching={searching()}
+              searchError={searchError()}
+            />
+          )}
         </Show>
 
         <Show when={!data()}>

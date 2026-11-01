@@ -1,4 +1,4 @@
-import { Show, type Component } from "solid-js";
+import { createSignal, Show, type Component } from "solid-js";
 import type { WeatherData } from "../types/weather";
 import { compassLabel } from "../three/solar";
 
@@ -25,7 +25,14 @@ const Stat: Component<{ label: string; value: string; unit?: string }> = (
   </div>
 );
 
-export function WeatherMain(props: { data: WeatherData; located: boolean }) {
+export function WeatherMain(props: {
+  data: WeatherData;
+  located: boolean;
+  onSearch: (query: string) => Promise<void>;
+  searching: boolean;
+  searchError: string | null;
+}) {
+  const [query, setQuery] = createSignal("");
   const temp = () => Math.round(props.data.main.temp);
   const feels = () => Math.round(props.data.main.feels_like);
   const high = () => Math.round(props.data.main.temp_max);
@@ -45,6 +52,12 @@ export function WeatherMain(props: { data: WeatherData; located: boolean }) {
     });
   };
 
+  const submitSearch = (event: Event) => {
+    event.preventDefault();
+    const value = query().trim();
+    if (value) void props.onSearch(value);
+  };
+
   return (
     <>
       {/* The sky itself is mounted once, by App, so it can appear before
@@ -61,15 +74,48 @@ export function WeatherMain(props: { data: WeatherData; located: boolean }) {
             Only what belongs on an edge: where you are, and the
             local clock. Everything with real weight lives at the
             bottom. */}
-        <header class="flex items-start justify-between gap-4 pt-9">
+        <header class="flex flex-wrap items-start justify-between gap-x-4 gap-y-4 pt-7 sm:pt-9">
           <h1 class="dm-sans-300 flex items-baseline gap-1.5 text-xl font-light tracking-tight text-white">
             <span class="font-normal">{props.data.name}</span>
             <span class="text-xs text-white/40">{props.data.sys.country}</span>
           </h1>
 
-          <span class="dm-sans-300 shrink-0 text-xl font-light tabular-nums text-white/85">
-            {localTime()}
-          </span>
+          <div class="flex w-full flex-col gap-2 sm:ml-auto sm:w-auto sm:flex-row sm:items-start sm:gap-5">
+            <form
+              onSubmit={submitSearch}
+              role="search"
+              class="group flex h-11 w-full items-center gap-3 rounded-sm border border-white/20 bg-black/20 px-3.5 shadow-[0_8px_32px_rgba(0,0,0,0.12)] backdrop-blur-md transition-colors focus-within:border-white/55 sm:w-72"
+            >
+              <span
+                aria-hidden="true"
+                class="relative h-3.5 w-3.5 shrink-0 rounded-full border border-white/60 after:absolute after:-bottom-1 after:-right-1 after:h-1.5 after:w-px after:rotate-[-45deg] after:bg-white/60"
+              />
+              <input
+                value={query()}
+                onInput={(event) => setQuery(event.currentTarget.value)}
+                aria-label="Search locations"
+                placeholder="Find another place"
+                autocomplete="off"
+                class="dm-sans-300 min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-white/50"
+              />
+              <button
+                type="submit"
+                aria-label="Search"
+                disabled={props.searching || !query().trim()}
+                class="dm-sans-300 border-l border-white/20 pl-3 text-[10px] uppercase tracking-[0.18em] text-white/75 transition-colors hover:text-white disabled:cursor-not-allowed disabled:text-white/30"
+              >
+                {props.searching ? "..." : "Go"}
+              </button>
+            </form>
+            <span class="dm-sans-300 shrink-0 self-end text-xl font-light tabular-nums text-white/85 sm:self-auto">
+              {localTime()}
+            </span>
+          </div>
+          <Show when={props.searchError}>
+            <p role="status" class="dm-sans-300 -mt-2 w-full text-xs text-rose-100/90 sm:ml-auto sm:w-72">
+              {props.searchError}
+            </p>
+          </Show>
         </header>
 
         {/* ── Open sky ─────────────────────────────────────────
